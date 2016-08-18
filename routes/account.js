@@ -54,7 +54,8 @@ function push(router) {
                     req.session.isLogin = true;
                     req.session.uname = rows[0].user_name;
                     req.session.uid = rows[0].id;
-
+                    req.session.user = rows[0];
+                    delete req.session.user.pwd;
 
                     //res.contentType('application/text'); 
                     //res.render('chat');  //只是呈现，客户端的url没有变化
@@ -92,14 +93,14 @@ function push(router) {
         var uname = req.param('uname');
 
         if (uname.trim().length == 0) {
-            res.send('必须录入用户名');
+            res.send('昵称不能为空');
             return;
         }
 
         // if (req.param('upwd' != undefined))
         //     var upwd = runtime.md5(runtime.md5(req.param('upwd')));
         var upwd = '';
-        if (req.param('login_pwd' != undefined) && req.param('login_pwd2' != undefined)) {
+        if (req.param('login_pwd') != undefined && req.param('login_pwd2') != undefined) {
             var login_pwd = req.param('login_pwd');
             var login_pwd2 = req.param('login_pwd2');
 
@@ -123,12 +124,8 @@ function push(router) {
 
         sqlexecutor.ExecSql(' select 1 from user where user_name=@uname ', { uname: uname }, function (err, rows) {
             if (err) log(err, 3);
-            else if (rows.length > 0 && uid < 0) {
-                res.send('[' + uname + ']用户名已存在');
-                return;
-            }
-            else if (rows.length > 0 && req.session.isLogin && req.session.uname != uname) {
-                res.send('[' + uname + ']用户名已存在');
+            else if ((rows.length > 0 && uid < 0) || (rows.length > 0 && req.session.isLogin && req.session.uname != uname)) {
+                res.send('[' + uname + ']用户名已被使用');
                 return;
             }
             else { //用户名可用

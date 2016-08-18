@@ -22,7 +22,7 @@
 		<div class="aui-title">填写报名表</div>
 	</header>
 
-	<form id='reg_from' action="\account\register" method="post">
+	<form id='reg_from' action="\activity\enroll?aid=<%=user.act_id %>" method="post">
 		<div class="aui-content">
 			<div class="aui-content aui-margin-b-15">
 				<ul class="aui-list aui-form-list">
@@ -49,6 +49,19 @@
 					<li class="aui-list-item">
 						<div class="aui-list-item-inner">
 							<div class="aui-list-item-label">
+								性别
+							</div>
+							<div class="aui-list-item-input">
+								<label><input class="aui-radio" type="radio"  name="ugender" id="x1" value="1" <% if(user.gender=='1'){  %>  <%='checked' %>  <% } %>> 
+								<label for="x1">男</label></label>
+								<label><input class="aui-radio" type="radio"  name="ugender" id="x0" value="0" <% if(user.gender=='0'){  %>  <%='checked' %> <% } %>>
+								<label for="x0">女</label></label>
+							</div>
+						</div>
+					</li>
+					<li class="aui-list-item">
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-label">
 								身份证
 							</div>
 							<div class="aui-list-item-input">
@@ -69,13 +82,50 @@
 					<li class="aui-list-item">
 						<div class="aui-list-item-inner">
 							<div class="aui-list-item-label">
-								性别
+								紧急联系人
 							</div>
 							<div class="aui-list-item-input">
-								<label><input class="aui-radio" type="radio"  name="ugender" id="x1" value="1" <% if(user.gender=='1'){  %>  <%='checked' %>  <% } %>> 
-								<label for="x1">男</label></label>
-								<label><input class="aui-radio" type="radio"  name="ugender" id="x0" value="0" <% if(user.gender=='0'){  %>  <%='checked' %> <% } %>>
-								<label for="x0">女</label></label>
+								<input id="ecperson" name="ecperson" placeholder="紧急联系人" type="text" class="noborder_input form_control" value="<%=user.ecperson %>">
+							</div>
+						</div>
+					</li>
+					<li class="aui-list-item">
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-label">
+								紧急联系人电话
+							</div>
+							<div class="aui-list-item-input">
+								<input id="ecpersonphone" name="ecpersonphone" placeholder="紧急联系人电话" type="text" class="noborder_input form_control" value="<%=user.ecpersonphone %>">
+							</div>
+						</div>
+					</li>
+					<li class="aui-list-item">
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-label">
+								其他需求及建议
+							</div>
+							<div class="aui-list-item-input">
+								<input id="others" name="others" placeholder="" type="text" class="noborder_input form_control" value="<%=user.others %>">
+							</div>
+						</div>
+					</li>
+					<li class="aui-list-item">
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-label">
+								支付方式
+							</div>
+							<div class="aui-list-item-input">
+								后续将支持在线支付
+							</div>
+						</div>
+					</li>
+					<li class="aui-list-item">
+						<div class="aui-list-item-inner">
+							<div class="aui-list-item-label">
+								<input type="checkbox"  />
+							</div>
+							<div class="aui-list-item-input">
+								《服务说明及责任声明》
 							</div>
 						</div>
 					</li>
@@ -85,7 +135,7 @@
 
 		<!-- footer -->
 		<footer class="aui-bar aui-bar-tab" id="footer">
-			<input type="submit" class="aui-btn aui-btn-info aui-btn-block" style="border-radius: 0;" value="提交" />
+			<input type="submit" class="aui-btn aui-btn-info aui-btn-block" style="border-radius: 0;" value="确认报名" />
 		</footer>
 
 	</form>
